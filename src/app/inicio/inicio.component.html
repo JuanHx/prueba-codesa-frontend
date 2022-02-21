@@ -1,0 +1,90 @@
+<div class="uk-section-small uk-section-default header">
+    <div class="uk-container uk-container-large">
+        <h1><span class="ion-speedometer"></span> Dashboard</h1>
+        <ul class="uk-breadcrumb">
+            <li><span href="">Dashboard</span></li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="uk-section-small" *ngIf="todo == null">
+    <div class="uk-container uk-container-large">
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+
+                <div uk-alert>
+                    <h2>No hay datos<i class="fas fa-table"></i></h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="uk-position-medium uk-position-top-right uk-overlay uk-overlay-default" routerLink="/agregarRegistro">
+    <button class="uk-button uk-button-default">Agregar</button>
+</div>
+
+
+<div class="uk-section-small" *ngIf="todo != null">
+    <div class="uk-container uk-container-large">
+        <table class="uk-table uk-table-hover uk-table-divider" >
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Nacionalidad</th>
+                    <th>Telefono</th>
+                    <th>Edad</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Estado eliminado</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todos of todo" >
+                    <td>{{todos.id}}</td>
+                    <td>{{todos.nombre}}</td>
+                    <td>{{todos.apellido}}</td>
+                    <td>{{todos.nacionalidad}}</td>
+                    <td>
+                        <p style="text-align: center" *ngIf="todos.telefono != null">{{todos.telefono}}</p>
+                        <p style="text-align: center" *ngIf="todos.telefono == null">No registra</p>
+                    </td>
+                    <td>{{todos.edad}}</td>
+                    <td>{{todos.fechaNacimiento}}</td>
+                    <td>
+                        <p style="text-align: center" *ngIf="todos.delete == 0">NO</p>
+                        <p style="text-align: center" *ngIf="todos.delete == 1">SI</p>
+                    </td>
+                    <td>
+                        <!-- Boton eliminar -->
+                        <div>
+                            <p style="text-align: center" *ngIf="todos.delete == 0">
+                                <button class="uk-button uk-button-default"
+                                    (click)="eliminarRegistro(todos.id)">Eliminar</button>
+                            </p>
+                            <p style="text-align: center" *ngIf="todos.delete == 1">
+                                <button class="uk-button uk-button-default" disabled>Eliminar</button>
+                            </p>
+                        </div>
+                        
+                        <!-- Boton Editar -->
+                        <div >
+                            <p style="text-align: center">
+                                <button class="uk-button uk-button-default"
+                                routerLink="/editarRegristro/{{todos.id}}" >editar</button>
+                            </p>
+                        </div>
+
+
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
